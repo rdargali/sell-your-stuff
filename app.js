@@ -10,6 +10,13 @@ app.engine("mustache", mustacheExpress(VIEWS_PATH + "/partials"), ".mustache");
 app.set("views", VIEWS_PATH);
 app.set("view engine", "mustache");
 
+app.get("/register", (req, res) => {
+  res.render("register");
+});
+app.get("/login", (req, res) => {
+  res.render("login");
+});
+
 app.listen(PORT, () => {
   console.log(`Server is running on PORT ${PORT}`);
 });
