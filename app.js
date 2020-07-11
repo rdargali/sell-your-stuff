@@ -3,6 +3,16 @@ const app = express();
 const PORT = 3000;
 const path = require("path");
 
+//express session
+const session = require("express-session");
+app.use(
+  session({
+    secret: "something super super secrit guys",
+    resave: true,
+    saveUninitialized: false,
+  })
+);
+
 //bcrypt
 const bcrypt = require("bcrypt");
 const SALT_ROUNDS = 10;
@@ -61,6 +71,37 @@ app.post("/register", async (req, res) => {
 
 app.get("/login", (req, res) => {
   res.render("login");
+});
+
+app.post("/login", async (req, res) => {
+  let username = req.body.username;
+  let password = req.body.password;
+
+  let user = await models.User.findOne({
+    where: {
+      username: username,
+    },
+  });
+
+  if (user != null) {
+    bcrypt.compare(password, user.password, (error, result) => {
+      if (result) {
+        //create session
+
+        if (req.session) {
+          req.session.user = {
+            userId: user.id,
+          };
+
+          res.redirect("/users/products");
+        }
+      } else {
+        res.render("login", { message: "Incorrect username or password" });
+      }
+    });
+  } else {
+    res.render("login", { message: "Incorrect username or password" });
+  }
 });
 
 app.listen(PORT, () => {
