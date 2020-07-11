@@ -3,6 +3,10 @@ const app = express();
 const PORT = 3000;
 const path = require("path");
 
+//bcrypt
+const bcrypt = require("bcrypt");
+const SALT_ROUNDS = 10;
+
 //sequelize
 const models = require("./models");
 
@@ -32,20 +36,26 @@ app.post("/register", async (req, res) => {
   });
 
   if (persistedUser == null) {
-    let user = models.User.build({
-      username: username,
-      password: password,
+    bcrypt.hash(password, SALT_ROUNDS, async (error, hash) => {
+      if (error) {
+        res.render("/register", { message: "Error creating user" });
+      }
+
+      let user = models.User.build({
+        username: username,
+        password: hash,
+      });
+
+      let savedUser = await user.save();
+
+      if (savedUser != null) {
+        res.redirect("/login");
+      } else {
+        res.render("/register", { message: "Username already exists" });
+      }
     });
-
-    let savedUser = await user.save();
-
-    if (savedUser != null) {
-      res.redirect("/login");
-    } else {
-      res.render("/register", { message: "User already exists" });
-    }
   } else {
-    res.render("/register", { message: "User already exists" });
+    res.render("/register", { message: "Username already exists" });
   }
 });
 
