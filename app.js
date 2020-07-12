@@ -36,6 +36,9 @@ app.set("view engine", "mustache");
 const indexRoutes = require("./routes/index");
 app.use("/", indexRoutes);
 
+const usersRouters = require("./routes/users");
+app.use("/users", usersRouters);
+
 app.listen(PORT, () => {
   console.log(`Server is running on PORT ${PORT}`);
 });
