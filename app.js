@@ -3,6 +3,11 @@ const app = express();
 const PORT = 3000;
 const path = require("path");
 
+global.__basedir = __dirname;
+
+//static resources
+app.use("/uploads", express.static("uploads"));
+
 //express session
 const session = require("express-session");
 app.use(
