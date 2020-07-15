@@ -6,6 +6,16 @@ const models = require("../models");
 
 let uniqueFilename = " ";
 
+router.get("/products", async (req, res) => {
+  let products = await models.Product.findAll({
+    where: {
+      userId: req.session.user.userId,
+    },
+  });
+
+  res.render("users/products", { products: products });
+});
+
 router.get("/add-product", (req, res) => {
   res.render("users/add-product");
 });
@@ -27,7 +37,7 @@ router.post("/add-product", async (req, res) => {
   let persistedProduct = await product.save();
 
   if (persistedProduct != null) {
-    res.redirect("/user/products");
+    res.redirect("/users/products");
   } else {
     res.render("users/add-product", { message: "Unable to add product" });
   }
