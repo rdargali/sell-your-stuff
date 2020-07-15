@@ -25,7 +25,11 @@ function uploadFile(req, callback) {
 
 router.post("/upload", (req, res) => {
   uploadFile(req, (photoURL) => {
-    res.send("UPLOAD");
+    newPhotoUrl = `/uploads/${photoURL}`;
+    res.render("users/add-product", {
+      imageURL: newPhotoUrl,
+      className: "product-preview-image",
+    });
   });
 });
 

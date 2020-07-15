@@ -7,6 +7,7 @@ global.__basedir = __dirname;
 
 //static resources
 app.use("/uploads", express.static("uploads"));
+app.use("/css", express.static("css"));
 
 //express session
 const session = require("express-session");
