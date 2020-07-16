@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+ {{> header}}
+    
+</head>
+
+<body>
+<h1>Welcome</h1>
+
+
+<div class="container">
+{{> menu}}
+
+<br />
+
+<div class="list-group">
+
+        <ul>
+
+            {{#products}}
+               
+                <img src="/uploads/{{imageURL}}" class="product-preview-image" />
+                <li class="list-group-item d-flex align-items-center justify-content-between">
+                    <a href="/products/{{id}}"><h5 class="mb-1">{{title}}</h5></a>   
+                    <small class="text-success"><b>${{price}}</b></small>
+                 </li>
+
+            {{/products}}
+
+        </ul>
+
+
+    </div>
+
+
+</div>
+
+
+{{> footer}}
+</body>
+
+</html>

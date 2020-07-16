@@ -6,6 +6,12 @@ const SALT_ROUNDS = 10;
 
 const models = require("../models");
 
+router.get("/", async (req, res) => {
+  let products = await models.Product.findAll();
+
+  res.render("index", { products: products });
+});
+
 router.get("/register", (req, res) => {
   res.render("register");
 });
