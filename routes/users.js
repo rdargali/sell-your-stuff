@@ -6,6 +6,14 @@ const models = require("../models");
 
 let uniqueFilename = " ";
 
+router.get("/products/:productId", async (req, res) => {
+  let productId = req.params.productId;
+
+  let product = await models.Product.findByPk(productId);
+
+  res.render("users/edit", product.dataValues);
+});
+
 router.post("/delete-product", async (req, res) => {
   let productId = parseInt(req.body.productId);
 
