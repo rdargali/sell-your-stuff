@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+ {{> header}}
+    
+</head>
+
+<body>
+<h1>Product Details</h1>
+
+
+<div class="container">
+{{> menu}}
+
+<h3>{{title}}</h3>
+<p>{{description}}</p>
+<small>{{price}}</small>
+
+<br />
+
+
+<img src="/uploads/{{imageURL}}" class="product-preview-image" />
+
+
+{{#message}}
+  <div class="alert alert-danger" role="alert">
+  {{message}}
+  </div>
+{{/message}}
+
+
+</div>
+
+
+
+{{> footer}}
+</body>
+
+</html>

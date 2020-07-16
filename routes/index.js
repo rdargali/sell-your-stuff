@@ -6,6 +6,15 @@ const SALT_ROUNDS = 10;
 
 const models = require("../models");
 
+router.get("/products/:productId", async (req, res) => {
+  let productId = parseInt(req.params.productId);
+  console.log(productId);
+
+  let product = await models.Product.findByPk(productId);
+
+  res.render("product-details", product.dataValues);
+});
+
 router.get("/", async (req, res) => {
   let products = await models.Product.findAll();
 
