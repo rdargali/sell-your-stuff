@@ -6,6 +6,41 @@ const models = require("../models");
 
 let uniqueFilename = " ";
 
+router.post("/update-product", async (req, res) => {
+  let productId = req.body.productId;
+  let title = req.body.title;
+  let description = req.body.description;
+  let price = parseInt(req.body.price);
+
+  let result = await models.Product.update(
+    {
+      title: title,
+      description: description,
+      price: price,
+      imageURL: uniqueFilename,
+    },
+    {
+      where: {
+        id: productId,
+      },
+    }
+  );
+
+  res.redirect("/users/products");
+});
+
+router.post("/upload/edit/:productId", (req, res) => {
+  uploadFile(req, async (photoURL) => {
+    let productId = parseInt(req.params.productId);
+    let product = await models.Product.findByPk(productId);
+    let response = product.dataValues;
+
+    response.imageURL = photoURL;
+
+    res.render("users/edit", response);
+  });
+});
+
 router.get("/products/:productId", async (req, res) => {
   let productId = req.params.productId;
 
