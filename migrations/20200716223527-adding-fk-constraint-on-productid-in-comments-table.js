@@ -3,7 +3,7 @@
 module.exports = {
   up: async (queryInterface, Sequelize) => {
     return queryInterface.addConstraint("Comments", {
-      fields: ["productId"],
+      fields: ["productId"], //different from azam
       type: "FOREIGN KEY",
       name: "postid-fk-in-comments",
       references: {
