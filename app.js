@@ -19,10 +19,6 @@ app.use(
   })
 );
 
-//bcrypt
-// const bcrypt = require("bcrypt");
-// const SALT_ROUNDS = 10;
-
 //sequelize
 const models = require("./models");
 
