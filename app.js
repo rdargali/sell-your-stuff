@@ -35,11 +35,13 @@ app.set("view engine", "mustache");
 
 //routes and middleware
 
+const checkAuthorization = require("./middlewares/authorization");
+
 const indexRoutes = require("./routes/index");
 app.use("/", indexRoutes);
 
 const usersRouters = require("./routes/users");
-app.use("/users", usersRouters);
+app.use("/users", checkAuthorization, usersRouters);
 
 app.listen(PORT, () => {
   console.log(`Server is running on PORT ${PORT}`);
