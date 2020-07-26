@@ -28,9 +28,17 @@ router.post("/add-comment", async (req, res) => {
 
 router.get("/products/:productId", async (req, res) => {
   let productId = parseInt(req.params.productId);
-  console.log(productId);
-
-  let product = await models.Product.findByPk(productId);
+  let product = await models.Product.findOne({
+    include: [
+      {
+        model: models.Comment,
+        as: "comments",
+      },
+    ],
+    where: {
+      id: productId,
+    },
+  });
 
   res.render("product-details", product.dataValues);
 });
