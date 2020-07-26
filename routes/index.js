@@ -6,6 +6,18 @@ const SALT_ROUNDS = 10;
 
 const models = require("../models");
 
+router.get("/logout", (req, res, next) => {
+  if (req.session) {
+    req.session.destroy((error) => {
+      if (error) {
+        next(error);
+      } else {
+        res.redirect("/login");
+      }
+    });
+  }
+});
+
 router.post("/add-comment", async (req, res) => {
   let productId = parseInt(req.body.productId);
   let title = req.body.title;
