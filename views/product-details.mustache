@@ -2,39 +2,58 @@
 <html lang="en">
 
 <head>
- {{> header}}
-    
+  {{> header}}
+
 </head>
 
 <body>
-<h1>Product Details</h1>
+  <h1>Product Details</h1>
 
 
-<div class="container">
-{{> menu}}
+  <div class="container">
+    {{> menu}}
 
-<h3>{{title}}</h3>
-<p>{{description}}</p>
-<small>{{price}}</small>
+    <h3>{{title}}</h3>
+    <img src="/uploads/{{imageURL}}" class="product-preview-image" />
+    <p>{{description}}</p>
+    <small>{{price}}</small>
 
-<br />
-
-
-<img src="/uploads/{{imageURL}}" class="product-preview-image" />
+    <br />
 
 
-{{#message}}
-  <div class="alert alert-danger" role="alert">
-  {{message}}
+    <div class="add-comment">
+      <b>Add Comment</b>
+      <form action="/add-comment" method="POST">
+        <input type="hidden" name="productId" value="{{id}}" />
+        <div class="form-group">
+          <label for="exampleInputEmail1">Title</label>
+          <input type="text" class="form-control" name="title" aria-describedby="emailHelp" placeholder="Enter title">
+        </div>
+        <div class="form-group">
+          <label for="exampleInputPassword1">Descrption</label>
+          <textarea type="text" name="description" class="form-control" placeholder="Description"></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </form>
+    </div>
+
+
+
+    
+
+
+    {{#message}}
+    <div class="alert alert-danger" role="alert">
+      {{message}}
+    </div>
+    {{/message}}
+
+
   </div>
-{{/message}}
-
-
-</div>
 
 
 
-{{> footer}}
+  {{> footer}}
 </body>
 
 </html>

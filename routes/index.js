@@ -6,6 +6,26 @@ const SALT_ROUNDS = 10;
 
 const models = require("../models");
 
+router.post("/add-comment", async (req, res) => {
+  let productId = parseInt(req.body.productId);
+  let title = req.body.title;
+  let description = req.body.description;
+
+  let comment = models.Comment.build({
+    title: title,
+    description: description,
+    productId: productId,
+  });
+
+  let savedComment = await comment.save();
+
+  if (savedComment) {
+    res.redirect(`/products/${productId}`);
+  } else {
+    res.render("prodyct-details", { message: "Error adding comment!" });
+  }
+});
+
 router.get("/products/:productId", async (req, res) => {
   let productId = parseInt(req.params.productId);
   console.log(productId);
