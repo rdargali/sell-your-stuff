@@ -116,8 +116,6 @@ router.post("/login", async (req, res) => {
   if (user != null) {
     bcrypt.compare(password, user.password, (error, result) => {
       if (result) {
-        //create session
-
         if (req.session) {
           req.session.user = {
             userId: user.id,
