@@ -37,6 +37,11 @@ app.set("view engine", "mustache");
 
 const checkAuthorization = require("./middlewares/authorization");
 
+app.use((req, res, next) => {
+  res.locals.isAuthenticated = false;
+  next();
+});
+
 const indexRoutes = require("./routes/index");
 app.use("/", indexRoutes);
 
